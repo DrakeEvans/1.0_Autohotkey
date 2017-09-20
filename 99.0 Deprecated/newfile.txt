@@ -1,0 +1,55 @@
+{
+global xlHelper
+global xlHelperSheet
+
+xl := ComObjActive("Excel.Application")
+finalColumn := "LL"
+
+;Turn off Application
+{
+oldCalcState := xl.calculation
+xl.Calculation := -4135
+;xl.ScreenUpdating := False
+xl.EnableEvents := False
+}
+
+mySelection := xl.Selection
+mySelection.Copy
+Sleep, 100
+helperRangeAddress := "A1:" . xlHelperSheet.Range("A1").Offset(mySelection.Rows.Count, mySelection.Columns.Count).Address
+helperRange := xlHelperSheet.Range(helperRangeAddress)
+
+
+MsgBox, %helperRangeAddress%
+helperRange.PasteSpecial
+helperRange.Style := xl.Workbooks("PERSONAL.XLSB").Styles("1st Level")
+
+
+mySelection.select
+
+If (mySelection.Count = 1) {
+
+rwNumber := mySelection.Row
+rangeAddress := "A" . rwNumber . ":" . finalColumn . rwNumber
+xl.ActiveSheet.Range(rangeAddress).Select
+selectAddress := "B" . rwNumber
+
+helperRange.Copy
+xl.CommandBars.ExecuteMso("PasteFormatting")
+;helperRange.Clear
+xl.ActiveSheet.Range(selectAddress).Select
+
+} else {
+
+helperRange.copy
+xl.CommandBars.ExecuteMso("PasteFormatting")
+helperRange.Clear
+
+}
+
+xl.Calculation := oldCalcState
+xl.ScreenUpdating := True
+xl.EnableEvents := True
+
+return
+}96145841066824810797048

@@ -1,0 +1,5 @@
+#SingleInstance force
+#IfWinActive, ahk_exe EXCEL.EXE
+
+
+oExcel := ComObjActive("Excel.Application")
