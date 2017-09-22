@@ -17,6 +17,30 @@ CapsLock::
 return
 
 
+^!NumpadDiv::
+	xl := ComObjActive("Excel.Application")
+	xl.Selection.PasteSpecial(-4104, 5)
+	releaseobject(xl)
+Return
+
+^!NumpadMultiply::
+	xl := ComObjActive("Excel.Application")
+	xl.Selection.PasteSpecial(-4104, 4)
+	releaseobject(xl)
+Return
+
+^!NumpadAdd::
+	xl := ComObjActive("Excel.Application")
+	xl.Selection.PasteSpecial(-4104, 2)
+	releaseobject(xl)
+Return
+
+^!NumpadSubtract::
+	xl := ComObjActive("Excel.Application")
+	xl.Selection.PasteSpecial(-4104, 3)
+	releaseobject(xl)
+Return
+
 ;Set Print Area
 ^!+p::
 	xl := ComObjActive("Excel.Application")
@@ -1535,3 +1559,11 @@ return
 ;xlPasteValuesAndNumberFormats
 ;12
 ;Values and Number formats are pasted
+
+/*
+xlPasteSpecialOperationAdd	2	Copied data will be added to the value in the destination cell.
+xlPasteSpecialOperationDivide	5	Copied data will divide the value in the destination cell.
+xlPasteSpecialOperationMultiply	4	Copied data will multiply the value in the destination cell.
+xlPasteSpecialOperationNone	-4142	No calculation will be done in the paste operation.
+xlPasteSpecialOperationSubtract	3	Copied data will be subtracted from the value in the destination cell.
+*/
