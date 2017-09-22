@@ -23,7 +23,7 @@ return
 	releaseobject(xl)
 Return
 
-^!NumpadMultiply::
+^!NumpadMult::
 	xl := ComObjActive("Excel.Application")
 	xl.Selection.PasteSpecial(-4104, 4)
 	releaseobject(xl)
