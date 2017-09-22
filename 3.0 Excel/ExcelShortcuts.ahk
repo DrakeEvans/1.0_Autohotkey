@@ -17,28 +17,36 @@ CapsLock::
 return
 
 
-^!NumpadDiv::
+^!NumpadDiv Up::
 	xl := ComObjActive("Excel.Application")
-	xl.Selection.PasteSpecial(-4104, 5)
-	releaseobject(xl)
+	SendInput, ^!v
+	SendInput, i
+	SendInput, {Enter}
+	ObjRelease(xl)
 Return
 
 ^!NumpadMult::
 	xl := ComObjActive("Excel.Application")
-	xl.Selection.PasteSpecial(-4104, 4)
-	releaseobject(xl)
+	SendInput, ^!v
+	SendInput, m
+	SendInput, {Enter}
+	ObjRelease(xl)
 Return
 
 ^!NumpadAdd::
 	xl := ComObjActive("Excel.Application")
-	xl.Selection.PasteSpecial(-4104, 2)
-	releaseobject(xl)
+	SendInput, ^!v
+	SendInput, s
+	SendInput, {Enter}
+	ObjRelease(xl)
 Return
 
-^!NumpadSubtract::
+^!NumpadSub::
 	xl := ComObjActive("Excel.Application")
-	xl.Selection.PasteSpecial(-4104, 3)
-	releaseobject(xl)
+	SendInput, ^!v
+	SendInput, d
+	SendInput, {Enter}
+	ObjRelease(xl)
 Return
 
 ;Set Print Area
