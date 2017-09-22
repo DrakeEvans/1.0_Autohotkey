@@ -1,5 +1,6 @@
 #NoEnv
 #SingleInstance, Force
+
 SendMode Input
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;keyhistory
@@ -21,6 +22,8 @@ Return
 */
 
 #If, GetKeyState("CapsLock", "P") ;Your CapsLock hotkeys go below
+
+
 
 ;i::+Tab
 i::Up
