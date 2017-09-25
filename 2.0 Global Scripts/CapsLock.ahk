@@ -1,17 +1,17 @@
 #NoEnv
 #SingleInstance, Force
 
-SendMode Input
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+;SendMode Input
+;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;keyhistory
 ;#InstallMouseHook
-#installkeybdhook
-SetNumLockState,On
-SetNumLockState,AlwaysOn
+;#installkeybdhook
+;SetNumLockState,On
+;SetNumLockState,AlwaysOn
 
-SetScrollLockState,Off
-SetScrollLockState,AlwaysOff
-return
+;SetScrollLockState,Off
+;SetScrollLockState,AlwaysOff
+;return
 ;
 /*
 CapsLock::
@@ -26,7 +26,11 @@ Return
 
 
 ;i::+Tab
-i::Up
+*i::
+	SendLevel 1
+	SendInput {Numpad8}
+return
+
 j::Left
 ;k::Tab
 k::Down

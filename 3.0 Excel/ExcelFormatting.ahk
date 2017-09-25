@@ -1,7 +1,7 @@
 #SingleInstance force
 #IfWinActive, ahk_exe EXCEL.EXE
 #MaxHotKeysPerInterval 1000
-
+#InputLevel 0
 
 ;OTHERS
 
@@ -747,7 +747,7 @@ return
 	myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
-	rangeAddress := "A" . rwNumber . ":AU" . rwNumber
+	rangeAddress := "A" . rwNumber . ":BI" . rwNumber
 	xl.ActiveSheet.Range(rangeAddress).Select
 	selectAddress := "B" . rwNumber
 	xl.CommandBars.ExecuteMso("PasteFormatting")
@@ -761,8 +761,9 @@ return
 	xl.EnableEvents := True
 	ObjRelease(xl)
 	return
-	;2nd Level Formatting
-	^#2::
+
+;2nd Level Formatting
+^#2::
 	xl := ComObjActive("Excel.Application")
 	oldCalcState := xl.calculation
 	xl.Calculation := -4135
@@ -780,7 +781,7 @@ return
 	myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
-	rangeAddress := "C" . rwNumber . ":AU" . rwNumber
+	rangeAddress := "C" . rwNumber . ":BI" . rwNumber
 	xl.ActiveSheet.Range(rangeAddress).Select
 	selectAddress := "C" . rwNumber
 	xl.CommandBars.ExecuteMso("PasteFormatting")
@@ -816,7 +817,7 @@ return
 	;myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
-	rangeAddress := "D" . rwNumber . ":AU" . rwNumber
+	rangeAddress := "D" . rwNumber . ":BI" . rwNumber
 	xl.ActiveSheet.Range(rangeAddress).Select
 	selectAddress := "D" . rwNumber
 	xl.CommandBars.ExecuteMso("PasteFormatting")
@@ -851,7 +852,7 @@ return
 
 	If (myselection.Count = 1) {
 		rwNumber := myselection.Row
-		rangeAddress := "E" . rwNumber . ":AU" . rwNumber
+		rangeAddress := "E" . rwNumber . ":BI" . rwNumber
 		xl.ActiveSheet.Range(rangeAddress).Select
 		selectAddress := "E" . rwNumber
 		xl.CommandBars.ExecuteMso("PasteFormatting")
