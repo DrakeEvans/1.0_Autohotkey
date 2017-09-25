@@ -24,7 +24,6 @@ Return
 #If, GetKeyState("CapsLock", "P") ;Your CapsLock hotkeys go below
 
 
-
 ;i::+Tab
 *i::
 	SendLevel 1
