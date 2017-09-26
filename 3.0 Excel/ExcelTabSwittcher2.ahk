@@ -32,101 +32,110 @@ xl_SheetActivate(){	; event that fires when new sheet is activated
 	
 	;msgbox, fired
 
-try {
-	
+	try {
+		
 
-	If (tabIndexOffset = 0) {	
-		
-		tabHistory.Insert(thisSheetIndex)
-		;msgBox, Sheet Added %thisSheetIndex%
-		
-		loopCount := tabHistory._MaxIndex()
+		If (tabIndexOffset = 0) {	
 			
-		thisSheetIndex := xl.ActiveSheet.Index
+			tabHistory.Insert(thisSheetIndex)
+			;msgBox, Sheet Added %thisSheetIndex%
+			
+			loopCount := tabHistory._MaxIndex()
+				
+			thisSheetIndex := xl.ActiveSheet.Index
 
-		Loop, %loopCount% {
-		
-			If (tabHistory[A_Index] = thisSheetIndex) {
-				tabHistory.RemoveAt(A_Index)
+			Loop, %loopCount% {
+			
+				If (tabHistory[A_Index] = thisSheetIndex) {
+					tabHistory.RemoveAt(A_Index)
+				}
 			}
-		}
+				
+			cellHistory := []
+			cellIndexOffset := 0
 			
-		cellHistory := []
-		cellIndexOffset := 0
+			;msgBox, %indexDifference%
+			;MsgBox, %previousSheet%
+			;MsgBox,  %thisIndex% 
+		}
 		
-		;msgBox, %indexDifference%
-		;MsgBox, %previousSheet%
-		;MsgBox,  %thisIndex% 
 	}
-	
-}
-return
-}
-
-
-;Previous Sheet
-<#`::
-{
-global xl
-global tabIndexOffset
-global tabHistory
-
-try {
-	Keywait, ``
-	Next_Sheet:
-	
-	tabIndexOffset := tabIndexOffset + 1
-	
-	tabIndex := tabHistory._MaxIndex() - tabIndexOffset + 1
-	
-	selectTabIndex := tabHistory[tabIndex]
-	
-	;MsgBox, %selectTabIndex%
-	
-	xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
-	
-	Keywait, ``, D T4
-	
-	If (ErrorLevel = 0) {
-	
-	GoTo Next_Sheet
-	}
-	
-}
 return
 }
 
 ;Reset Tab Index Offset
-~<#` up::
-{
-Keywait LWin
-	;msgbox, reset tab index
-global xl
-global tabIndexOffset := 0
-global tabHistory
-global thisSheetIndex
+<#`::
 
-tabIndexOffset := 0
-try {
-	tabIndexOffset := 0	
-	
-	tabHistory.Insert(thisSheetIndex)
-	
-	loopCount := tabHistory._MaxIndex()
-	
-	thisSheetIndex := xl.ActiveSheet.Index
-	
-	Loop, %loopCount% {
+	Keywait LWin
+		;msgbox, reset tab index
+	global xl
+	global tabIndexOffset
+	global tabHistory
+	global thisSheetIndex
+
+	tabIndexOffset := 0
+	try {
+		tabIndexOffset := 0	
 		
-			If (tabHistory[A_Index] = thisSheetIndex) {
-				
-				tabHistory.RemoveAt(A_Index)
-			}
+		tabHistory.Insert(thisSheetIndex)
+		
+		loopCount := tabHistory._MaxIndex()
+		
+		thisSheetIndex := xl.ActiveSheet.Index
+		
+		Loop, %loopCount% {
+			
+				If (tabHistory[A_Index] = thisSheetIndex) {
+					
+					tabHistory.RemoveAt(A_Index)
+				}
+		}
 	}
-}
+	;msgbox, reset
 return
-}
 
+
+;Previous Sheet
+<#` up::
+
+	global xl
+	global tabIndexOffset
+	global tabHistory
+
+	try {
+		Keywait, ``
+		Next_Sheet:
+
+		tabIndexOffset := tabIndexOffset + 1
+		
+		tabIndex := tabHistory._MaxIndex() - tabIndexOffset + 1
+		
+		selectTabIndex := tabHistory[tabIndex]
+		
+		;MsgBox, %selectTabIndex%
+		
+		xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
+		
+		Keywait, ``, D T3
+		
+		If (ErrorLevel = 0) {
+		
+		GoTo Next_Sheet
+		}
+		
+	}
+return
+
+
+^F1::
+	global tabHistory
+	loopCount := tabHistory._MaxIndex()
+	msgText :=""
+	Loop %loopCount% {
+		msgText := msgText . `A_Index . ":" . tabHistory[A_Index] . "  "
+	}
+msgBox, %msgText%
+return
 
 
 xl_SheetSelectionChange() {
