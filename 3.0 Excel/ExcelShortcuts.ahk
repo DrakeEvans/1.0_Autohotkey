@@ -16,36 +16,93 @@ CapsLock::
 	*/
 return
 
+;Link Constants Only
+^#l::
+
+	xl := ComObjActive("Excel.Application")
+	xl.ScreenUpdating := False
+	oldCalcState := xl.Calculation
+	xl.Calculation := -4135
+	xl.EnableEvents := False
+
+	try {
+		rwCount := xl.Selection.Rows.Count
+		clmCOunt := xl.Selection.Columns.Count
+		Loop, %rwCount% {
+			rw := A_Index + 1 -1
+			Loop, %clmCount% {
+				clm := A_Index + 1 -1
+				mySelection := xl.ActiveSheet.Range(xl.Selection.Address)
+				selectionAddress := xl.Selection.Address
+				myFormula := xl.ActiveWorkbook.ActiveSheet.Range(selectionAddress).Cells(rw, clm).Formula
+				;msgBox, Formula of Active CEll is %myFormula%
+				isTextForm := xl.IsText(mySelection.Cells(rw,clm))
+				;msgBox, Is text function returns %isTextForm%
+				If ((isTextForm <> -1) and (myFormula <> "")) {
+					;msgBox, Not Text
+					If (substr(myFormula,1,1) <> "=") {
+						newFormula := "=" . "'" . copyRangeTabName . "'!" . StrReplace(copyRange.Cells(rw, clm).Address,"$","")
+						;msgBox, New Formula is %newFormula%
+						mySelection.Cells(rw, clm).Formula := newFormula
+					}
+				}
+			}
+		}
+	}
+
+	xl.EnableEvents := True
+	xl.Calculation := oldCalcState
+	xl.ScreenUpdating := True
+	ObjRelease(xl)
+
+return
 
 ^!NumpadDiv Up::
 	xl := ComObjActive("Excel.Application")
 	SendInput, ^!v
-	SendInput, i
-	SendInput, {Enter}
+	WinWait, Paste Special,, 1
+	
+	If (ErrorLevel <> 1) {
+		SendInput, i
+		SendInput, {Enter}
+	}
+	
 	ObjRelease(xl)
 Return
 
 ^!NumpadMult::
 	xl := ComObjActive("Excel.Application")
 	SendInput, ^!v
-	SendInput, m
-	SendInput, {Enter}
+	
+	If (ErrorLevel <> 1) {
+		SendInput, m
+		SendInput, {Enter}
+	}
+	
 	ObjRelease(xl)
 Return
 
 ^!NumpadAdd::
 	xl := ComObjActive("Excel.Application")
 	SendInput, ^!v
-	SendInput, s
-	SendInput, {Enter}
+	
+	If (ErrorLevel <> 1) {
+		SendInput, s
+		SendInput, {Enter}
+	}
+
 	ObjRelease(xl)
 Return
 
 ^!NumpadSub::
 	xl := ComObjActive("Excel.Application")
 	SendInput, ^!v
-	SendInput, d
-	SendInput, {Enter}
+	
+	If (ErrorLevel <> 1) {
+		SendInput, d
+		SendInput, {Enter}
+	}
+
 	ObjRelease(xl)
 Return
 
@@ -119,10 +176,11 @@ return
 ;Cell Inspector
 AppsKey & i::
 	global copyRange
+	global copyRangeTabName
 	fillColor := copyRange.Interior.Color
 	fontColor := copyRange.Font.Color
 	styleName := copyRange.Style.Name
-	MsgBox, Fill Color: %fillColor% `n Font Color: %fontColor% `n Style Name: %styleName%
+	MsgBox, Fill Color: %fillColor% `n Font Color: %fontColor% `n Style Name: %styleName% `n Tab Name %copyRangeTabName%
 	ObjRelease(xl)
 return
 

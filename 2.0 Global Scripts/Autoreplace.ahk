@@ -146,7 +146,15 @@ return
 :?*:;dpt::($/T)
 return
 
-:?*:;xlobject::xl := ComObjActive("Excel.Application")
+:?*:;xlobject::
+    SendInput, xl := ComObjActive("Excel.Application")
+    SendInput {Enter}
+    SendInput {Enter}
+    SendInput {Enter}
+    SendInput {Enter}
+    SendInput, ObjRelease(xl)
+    SendInput {Up}
+    SendInput {Up}
 return
 
 :*?:;euro::{U+20AC}
