@@ -31,6 +31,22 @@ return
 ; Gui, Show
 ;return
 
+AppsKey & Left::
+    SendInput #{Left}
+return
+
+AppsKey & Right::
+    SendInput #{Right}
+return
+
+AppsKey & Up::
+    SendInput #{Up}
+return
+
+AppsKey & Down::
+    SendInput #{Down}
+return
+
 
 #InputLevel, 1
 WheelUp::
