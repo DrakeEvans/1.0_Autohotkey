@@ -1,5 +1,5 @@
 #Persistent
-#IfWinActive, ahk_exe EXCEL.EXE
+#IfWinActive, ahk_class XLMAIN
 #SingleInstance Force
 global xl := ComObjActive("Excel.Application")   ; ID active Excel Application
 ComObjConnect(xl, "xl_")	; connect oWord events to corresponding script functions with the prefix "xl_".

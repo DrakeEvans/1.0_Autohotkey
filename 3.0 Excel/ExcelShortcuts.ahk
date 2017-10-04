@@ -1,5 +1,5 @@
 #SingleInstance force
-#IfWinActive, ahk_exe EXCEL.EXE
+#IfWinActive, ahk_class XLMAIN
 #MaxHotKeysPerInterval 1000
 
 global lcDict := {}
@@ -26,6 +26,7 @@ return
 	xl.EnableEvents := False
 
 	try {
+		SplashTextOn, , 25, , Working
 		rwCount := xl.Selection.Rows.Count
 		clmCOunt := xl.Selection.Columns.Count
 		Loop, %rwCount% {
@@ -54,6 +55,7 @@ return
 	xl.Calculation := oldCalcState
 	xl.ScreenUpdating := True
 	ObjRelease(xl)
+	SplashTextOff
 
 return
 
@@ -63,6 +65,7 @@ return
 	WinWait, Paste Special,, 1
 	
 	If (ErrorLevel <> 1) {
+		SendInput, v
 		SendInput, i
 		SendInput, {Enter}
 	}
@@ -75,6 +78,7 @@ Return
 	SendInput, ^!v
 	
 	If (ErrorLevel <> 1) {
+		SendInput, v
 		SendInput, m
 		SendInput, {Enter}
 	}
@@ -87,6 +91,7 @@ Return
 	SendInput, ^!v
 	
 	If (ErrorLevel <> 1) {
+		SendInput, v
 		SendInput, s
 		SendInput, {Enter}
 	}
@@ -99,6 +104,7 @@ Return
 	SendInput, ^!v
 	
 	If (ErrorLevel <> 1) {
+		SendInput, v
 		SendInput, d
 		SendInput, {Enter}
 	}

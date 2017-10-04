@@ -1,5 +1,5 @@
 #SingleInstance force
-#IfWinActive, ahk_exe EXCEL.EXE
+#IfWinActive, ahk_class XLMAIN
 #MaxHotKeysPerInterval 1000
 #InputLevel 0
 
