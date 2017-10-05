@@ -116,7 +116,7 @@ return
 		
 		xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
 		
-		Keywait, ``, D T3
+		Keywait, ``, D T2
 		
 		If (ErrorLevel = 0) {
 		
