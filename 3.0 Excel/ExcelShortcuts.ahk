@@ -460,6 +460,7 @@ return
 	xl := ComObjActive("Excel.Application")
 	KeyWait, Control
 	KeyWait, Alt
+	SendInput {Esc}
 	SendInput {Alt}
 	SendInput, m
 	SendInput, a
