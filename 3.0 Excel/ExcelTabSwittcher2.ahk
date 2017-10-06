@@ -115,12 +115,14 @@ return
 		;MsgBox, %selectTabIndex%
 		
 		xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
-		
-		Keywait, ``, D T2
+		KeyWait:
+		Keywait, ``, D T0.1
 		
 		If (ErrorLevel = 0) {
 		
 		GoTo Next_Sheet
+		} Else {
+			GoTo KeyWait
 		}
 		
 	}
