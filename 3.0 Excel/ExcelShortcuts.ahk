@@ -138,37 +138,6 @@ return
 	ObjRelease(xl)
 return
 
-;Mouse Key
-^#F8::
-	SendInput ^+=
-return
-
-;Mouse Key
-^#F11::
-	SendInput ^x
-return
-
-;Mouse Key
-^#F9:: ;G17 Button on Mouse
-    KeyWait, LControl
-    KeyWait, LWin
-    KeyWait, F9
-    ;Msgbox, you pressed control windows f12
-    SendInput ^{PgDn}
-	ObjRelease(xl)
-return
-
-;Mouse Key
-^#F7:: ;G17 Button on Mouse
-    KeyWait, LControl
-    KeyWait, LWin
-    KeyWait, F7
-    ;Msgbox, you pressed control windows f12
-    SendInput ^{PgUp}
-
-	ObjRelease(xl)
-return
-
 ^ESC::
     SendInput {CtrlBreak}
 
@@ -458,13 +427,7 @@ return
 ;Remove All Arrows
 ^!\::
 	xl := ComObjActive("Excel.Application")
-	KeyWait, Control
-	KeyWait, Alt
-	SendInput {Esc}
-	SendInput {Alt}
-	SendInput, m
-	SendInput, a
-	SendInput, a
+	xl.Commandbars.ExecuteMso("TraceRemoveAllArrows")
 	ObjRelease(xl)
 return
 
@@ -974,6 +937,7 @@ return
 	lastColumnBefore := lcDict[tabName]
 	;msgbox, %lastColumnBefore%
 
+
 	if (lcDict[(tabName)] > 1) {
 		lastColumn := lcDict[tabName]
 		;msgBox, %last%
@@ -982,15 +946,14 @@ return
 		;xl.ActiveSheet.Cells(checkRow, 1).Activate
 		debugvar := xl.ActiveSheet.Cells(checkRow, 48).Value
 		;msgBox, %debugVar%
-		Loop, 100 {
+		columnCount := xl.ActiveSheet.UsedRange.Columns.Count + 1
+
+		Loop, %columnCount% {
 			if (xl.ActiveSheet.Cells(checkRow, A_Index).Value = "|") {
 				lcDict[tabName] := A_Index
 				lastColumn := lcDict[tabName]
 				;msgBox, in the loop last COlumn %lastColumn%
 				GoTo Success
-			} else {
-				xl.ActiveCell.Offset(0,1).Select
-				
 			}
 		}
 		
@@ -1487,7 +1450,7 @@ return
 	xl.CommandBars.ExecuteMso("PasteValues")
 	}
 
-ObjRelease(xl)
+	ObjRelease(xl)
 return
 
 ;NumberFormatting
@@ -1509,7 +1472,7 @@ return
 	xl.CommandBars.ExecuteMso("PasteFormulas")
 	}
 
-ObjRelease(xl)
+	ObjRelease(xl)
 return
 
 ;PasteFormatting
@@ -1529,7 +1492,7 @@ return
 	xl.CommandBars.ExecuteMso("PasteFormatting")
 	}
 
-ObjRelease(xl)
+	ObjRelease(xl)
 return
 
 ;paste special dialog
@@ -1541,7 +1504,7 @@ PasteSpecialDialog:
 	xl := ComObjActive("Excel.Application")
 	try xl.CommandBars.ExecuteMso("PasteSpecialDialog")
 
-ObjRelease(xl)
+	ObjRelease(xl)
 return 
 
 
@@ -1560,7 +1523,7 @@ return
 	}
 
 
-ObjRelease(xl)
+	ObjRelease(xl)
 return
 
 
