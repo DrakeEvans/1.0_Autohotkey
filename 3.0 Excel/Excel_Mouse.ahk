@@ -34,8 +34,6 @@ return
     KeyWait, F7
     ;Msgbox, you pressed control windows f12
     SendInput ^{PgUp}
-
-	ObjRelease(xl)
 return
 
 ;Mouse Key
@@ -50,7 +48,6 @@ return
     KeyWait, F9
     ;Msgbox, you pressed control windows f12
     SendInput ^{PgDn}
-	ObjRelease(xl)
 return
 
 ;Mouse Key
