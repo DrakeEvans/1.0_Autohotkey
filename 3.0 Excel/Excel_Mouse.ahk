@@ -12,7 +12,7 @@ return
 return
 
 ;Mouse Key
-^#F3::
+^#F3::  
 return
 
 ;Mouse Key

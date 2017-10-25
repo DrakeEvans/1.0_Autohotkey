@@ -30,47 +30,47 @@ return
 	;msgBox numberFormatString: %nfString%
 	nfArray := StrSplit(nfString,";")
 
-	If (nfArray.MaxIndex() = 4) {
+		If (nfArray.MaxIndex() = 4) {
 
-		zeroFormat := nfArray[3]
-		;msgbox, zeroString: %zeroFormat%
-		
-		If (Instr(zeroFormat, """-""") > 0) {
-		
-			zeroFormat := StrReplace(zeroFormat, """-""", "0")
-			;MsgBox, New ZeroString found a dash %zeroFormat%
-		} else if (Instr(zeroFormat, "0") > 0) {
-		
-			zeroFormat := StrReplace(zeroFormat, "0", """-""")
-			;MsgBox, New ZeroString found a 0 %zeroFormat%
-		}
+			zeroFormat := nfArray[3]
+			;msgbox, zeroString: %zeroFormat%
+			
+			If (Instr(zeroFormat, """-""") > 0) {
+			
+				zeroFormat := StrReplace(zeroFormat, """-""", "0")
+				;MsgBox, New ZeroString found a dash %zeroFormat%
+			} else if (Instr(zeroFormat, "0") > 0) {
+			
+				zeroFormat := StrReplace(zeroFormat, "0", """-""")
+				;MsgBox, New ZeroString found a 0 %zeroFormat%
+			}
 
-		nfArray[3] := zeroFormat
-		
-		Loop, % nfArray._MaxIndex() {
+			nfArray[3] := zeroFormat
 			
-			newNFString := newNFString . nfArray[A_Index] . ";"
+			Loop, % nfArray._MaxIndex() {
+				
+				newNFString := newNFString . nfArray[A_Index] . ";"
+				
+			}
 			
+			newNFString := RTrim(newNFString, ";")
+			
+			;MsgBox %newNFString%
+			
+			SendInput ^1
+			sleep 10
+			SendInput n
+			sleep 10
+			SendInput !t
+			sleep 100
+			SendInput {Del}
+			sleep 10
+			SendRaw %newNFString%
+			SendInput {Enter}
+			
+			
+			;xl.Selection.NumberFormat := newNFString
 		}
-		
-		newNFString := RTrim(newNFString, ";")
-		
-		;MsgBox %newNFString%
-		
-		SendInput ^1
-		sleep 10
-		SendInput n
-		sleep 10
-		SendInput !t
-		sleep 100
-		SendInput {Del}
-		sleep 10
-		SendRaw %newNFString%
-		SendInput {Enter}
-		
-		
-		;xl.Selection.NumberFormat := newNFString
-	}
 	}
 	ObjRelease(xl)
 return
