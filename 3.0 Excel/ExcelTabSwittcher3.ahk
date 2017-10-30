@@ -19,8 +19,8 @@ global tabHistory := Object()
 
 
 
-xl_SheetActivate(){	; event that fires when new sheet is activated
-	
+xl_SheetActivate() {	; event that fires when new sheet is activated
+
 	global xl
 	
 	global tabIndexOffset
@@ -33,24 +33,24 @@ xl_SheetActivate(){	; event that fires when new sheet is activated
 	;msgbox, fired
 
 	try {
-		
 
 		If (tabIndexOffset = 0) {	
 			
-			tabHistory.Insert(thisSheetIndex)
-			;msgBox, Sheet Added %thisSheetIndex%
+			;Add sheet index from the most recent sheet to the array of indices
+			tabHistory.InsertAt(1, thisSheetIndex)
 			
-			loopCount := tabHistory._MaxIndex()
-				
+            ;replace thisSheetIndex value for future use to be appended when new sheet is activated
 			thisSheetIndex := xl.ActiveSheet.Index
-
-			Loop, %loopCount% {
 			
-				If (tabHistory[A_Index] = thisSheetIndex) {
+            loopCount := tabHistory._MaxIndex()
+			Loop, %loopCount% {
+                ;A_Index begins at 1 and loops though to maxIndex
+				If (tabHistory[A_Index] = thisSheetIndex) { ;remove any history of the current tab, current tab index will be added to list once we activate a new tab
 					tabHistory.RemoveAt(A_Index)
 				}
 			}
-				
+
+            ;Reset Cell History	
 			cellHistory := []
 			cellIndexOffset := 0
 			
@@ -60,72 +60,60 @@ xl_SheetActivate(){	; event that fires when new sheet is activated
 		}
 		
 	}
-return
 }
-
-;Reset Tab Index Offset when Lwin is released
-<#`::
-
-	Keywait LWin
-		;msgbox, reset tab index
-	global xl
-	global tabIndexOffset
-	global tabHistory
-	global thisSheetIndex
-
-	tabIndexOffset := 0
-	try {
-		tabIndexOffset := 0	
-		
-		tabHistory.Insert(thisSheetIndex)
-		
-		loopCount := tabHistory._MaxIndex()
-		
-		thisSheetIndex := xl.ActiveSheet.Index
-		
-		Loop, %loopCount% {
-			
-				If (tabHistory[A_Index] = thisSheetIndex) {
-					
-					tabHistory.RemoveAt(A_Index)
-				}
-		}
-	}
-	;msgbox, reset
 return
 
 
 ;Previous Sheet
-<#` up::
+^`::
 
 	global xl
 	global tabIndexOffset
 	global tabHistory
+    
+    while (GetKeyState("LCtrl", "P")) {
 
-	try {
-		Keywait, ``
-		Next_Sheet:
+        ;try {
+            tabIndexOffset := tabIndexOffset + 1
+            selectTabIndex := tabHistory[tabIndexOffset]
+            xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
+            KeyWait, ``
+        ;}
+        while (GetKeyState("``", "P") = 0 and GetKeyState("LCtrl", "P")) {
+            sleep, 100
+        }
+    }
 
-		tabIndexOffset := tabIndexOffset + 1
-		
-		tabIndex := tabHistory._MaxIndex() - tabIndexOffset + 1
-		
-		selectTabIndex := tabHistory[tabIndex]
-		
-		;MsgBox, %selectTabIndex%
-		
-		xl.ActiveWorkbook.Worksheets(selectTabIndex).Activate
-		KeyWait:
-		Keywait, ``, D T0.1
-		
-		If (ErrorLevel = 0) {
-		
-		GoTo Next_Sheet
-		} Else {
-			GoTo KeyWait
-		}
-		
-	}
+
+    tabIndexOffset := 0
+    try {
+
+        If (tabIndexOffset = 0) {	
+            
+            ;Add sheet index from the most recent sheet to the array of indices
+            tabHistory.InsertAt(1, thisSheetIndex)
+            
+            ;replace thisSheetIndex value for future use to be appended when new sheet is activated
+            thisSheetIndex := xl.ActiveSheet.Index
+            
+            loopCount := tabHistory._MaxIndex()
+            Loop, %loopCount% {
+                ;A_Index begins at 1 and loops though to maxIndex
+                If (tabHistory[A_Index] = thisSheetIndex) { ;remove any history of the current tab, current tab index will be added to list once we activate a new tab
+                    tabHistory.RemoveAt(A_Index)
+                }
+            }
+
+            ;Reset Cell History	
+            cellHistory := []
+            cellIndexOffset := 0
+            
+            ;msgBox, %indexDifference%
+            ;MsgBox, %previousSheet%
+            ;MsgBox,  %thisIndex% 
+        }
+    }
+
 return
 
 
@@ -137,6 +125,8 @@ return
 		msgText := msgText . `A_Index . ":" . tabHistory[A_Index] . "  "
 	}
 msgBox, %msgText%
+msgText2 := tabHistory[0]
+msgBox, %msgText2%
 return
 
 
@@ -231,8 +221,6 @@ textBox := textBox . A_Index . ":[" . tabHistory[A_Index] . "] "
 }
 
 MsgBox, %textBox% `n TabIndexOffset: %tabIndexOffset%
-msgText2 := tabHistory[0]
-msgBox, %msgText2%
 return
 
 

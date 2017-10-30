@@ -19,7 +19,9 @@ return
 ;Link Constants Only
 ^#l::
 
-	xl := ComObjActive("Excel.Application")
+	xl := ComObjActive("Excel.Application")=$D$257
+
+	
 	xl.ScreenUpdating := False
 	oldCalcState := xl.Calculation
 	xl.Calculation := -4135
