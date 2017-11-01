@@ -497,7 +497,7 @@ return
 
 
 ;Print Preview
-^#Space:: ;Alt-Space
+#Space:: ;Alt-Space
 	xl := ComObjActive("Excel.Application")    
 		If (xl.ActiveWindow.View = 2) {	
 			xl.ActiveWindow.View := 1
