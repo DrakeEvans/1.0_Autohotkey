@@ -19,8 +19,7 @@ return
 ;Link Constants Only
 ^#l::
 
-	xl := ComObjActive("Excel.Application")=$D$257
-
+	xl := ComObjActive("Excel.Application")
 	
 	xl.ScreenUpdating := False
 	oldCalcState := xl.Calculation
@@ -30,7 +29,7 @@ return
 	try {
 		SplashTextOn, , 25, , Working
 		rwCount := xl.Selection.Rows.Count
-		clmCOunt := xl.Selection.Columns.Count
+		clmCount := xl.Selection.Columns.Count
 		Loop, %rwCount% {
 			rw := A_Index + 1 -1
 			Loop, %clmCount% {
@@ -52,7 +51,7 @@ return
 			}
 		}
 	}
-
+	sleep, 1000
 	xl.EnableEvents := True
 	xl.Calculation := oldCalcState
 	xl.ScreenUpdating := True
