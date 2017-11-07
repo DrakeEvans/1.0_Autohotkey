@@ -93,7 +93,7 @@ Return
 	
 	If (ErrorLevel <> 1) {
 		SendInput, v
-		SendInput, s
+		SendInput, d
 		SendInput, {Enter}
 	}
 
@@ -106,7 +106,7 @@ Return
 	
 	If (ErrorLevel <> 1) {
 		SendInput, v
-		SendInput, d
+		SendInput, s
 		SendInput, {Enter}
 	}
 
