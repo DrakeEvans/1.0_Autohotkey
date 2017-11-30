@@ -332,6 +332,25 @@ AppsKey & n::
 	ObjRelease(xl)
 return
 
+;Jump to Highlighted Reference
+F5::
+	try global sourceCellF5 := xl.Selection
+	SendInput ^c
+	SendInput {F5}
+	WinWaitActive, Go To
+	SendInput ^v
+	SendInput {Enter}
+return
+
+!F5::
+	xl := ComObjActive("Excel.Application")
+	global sourceCellF5
+	try {
+		sourceCellF5.Parent.Activate
+		sourceCellF5.select
+	}
+	ObjRelease(xl)
+return
 
 
 ;Jump to Assumptions
@@ -1044,7 +1063,8 @@ return
 
 ; Group Columns
 ^!#Left::
-
+	SendInput {Ctrl up}
+	SendInput {Ctrl down}
 	xl := ComObjActive("Excel.Application")
 	xl.ScreenUpdating := False
 	try {
@@ -1061,7 +1081,8 @@ return
 
 ;Ungroup Columns
 ^!#Right::
-
+	SendInput {Ctrl up}
+	SendInput {Ctrl down}
 	xl := ComObjActive("Excel.Application")
 	xl.ScreenUpdating := False
 	try {
@@ -1077,6 +1098,8 @@ return
 
 ;Group Rows
 ^!#Up::
+	SendInput {Ctrl up}
+	SendInput {Ctrl down}
 	xl := ComObjActive("Excel.Application")
 	oldCalcState := xl.Calculation
 	xl.Calculation := -4135
@@ -1114,7 +1137,8 @@ return
 
 ;Ungroup Rows
 ^!#Down::
-
+	SendInput {Ctrl up}
+	SendInput {Ctrl down}
 	xl := ComObjActive("Excel.Application")
 	xl.ScreenUpdating := False
 	try {
@@ -1175,7 +1199,6 @@ return
 	ObjRelease(xl)
 return
 
-
 ;Rows Delete
 +-::
 
@@ -1233,7 +1256,7 @@ return
 	ObjRelease(xl)
 return
 
-;Groups Collapse
+;Column Groups Collapse
 ^!9::
 
 	xl := ComObjActive("Excel.Application")
@@ -1253,8 +1276,6 @@ return
 
 	ObjRelease(xl)
 return
-
-
 
 
 ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL  ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL  ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL  ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL ;PASTESPECIAL 

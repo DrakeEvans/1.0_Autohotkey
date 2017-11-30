@@ -21,6 +21,10 @@ return
 
 ;Mouse Key
 ^#F5::
+    KeyWait, LControl
+    KeyWait, LWin
+    KeyWait, F5
+    SendInput {F4}
 return
 
 ;Mouse Key

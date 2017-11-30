@@ -75,12 +75,10 @@ return
 
 
 ;Prevent accidental tooltip triggers in Office Applications 
-~^ & LAlt::
+~^LAlt::
     SendInput {Ctrl up}
     SendInput {Ctrl down}
 return
-
-
 
 +Esc::
     SendInput {CtrlBreak}
