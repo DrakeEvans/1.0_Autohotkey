@@ -97,7 +97,7 @@ return
 return
 
 MButton::
-	SendInput {Esc}
+	SendInput {Del}
 return
 
 ;Insert Note Updated

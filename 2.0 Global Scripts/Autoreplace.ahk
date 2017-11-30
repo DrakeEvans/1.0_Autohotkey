@@ -47,7 +47,7 @@ AppsKey & Down::
     SendInput #{Down}
 return
 
-
+/*
 #InputLevel, 1
 WheelUp::
     ;MouseGetPos, ,, currentWindowID
@@ -58,7 +58,7 @@ return
 WheelDown::
     SendInput {WheelUp}
 return
-
+*/
 
 #InputLevel, 0
 ~WheelLeft::

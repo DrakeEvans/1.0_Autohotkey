@@ -1533,7 +1533,6 @@ return
 
 
 WheelRight::
-
 	try ComObjActive("Excel.Application").ActiveWindow.SmallScroll(0,0,3)  
 
 	ObjRelease(xl)
