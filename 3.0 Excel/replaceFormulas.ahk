@@ -3,6 +3,18 @@
 #MaxHotKeysPerInterval 1000
 
 
+F3::
+    xl := ComObjActive("Excel.Application")
+    formulaString := xl.Selection.Formula
+    formulaArray := StrSplit(formulaString , ["+","-","*","/",")","(","=",",",";","^"])
+    text := ""
+    Loop, 10 {
+        text := "   " . formulaArray[A_Index] . text
+    }
+    msgBox, %text%
+    ObjRelease(xl)
+return
+
 F6::
     xl := ComObjActive("Excel.Application")
     xl.DisplayAlerts := False
