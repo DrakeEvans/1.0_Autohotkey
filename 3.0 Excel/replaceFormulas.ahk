@@ -20,31 +20,46 @@ F3::
 return
 */
 
-F3::
+^[::
     xl := ComObjActive("Excel.Application")
-    formulaString = =SUMIFS('4.2 m_Rev'!T434:T$545,'4.2 m_Rev'!$D$434:$DE$545,$E345)
+    formulaString := xl.Selection.Cells(1).Formula
     
-    references := Object()
-    startPos := 1
-    while (startPos > 0)
-    {
-        matchPos := RegExMatch(formulaString, "O)(?<sheet>['\s].*?!)?(?<cellref>\$?[A-Z]+\$?\d+(?::\$?[A-Z]+\$?\d+)?)" , matchObj, startPos)
-        startPos := matchPos + matchObj.Len[0]
-        text := MatchObj.Value[0]
-        msgBox, %text%
-        Loop, % matchObj.Count {
-            message := matchObj.Value[A_Index]
-            msgBox, subpattern: %message%
+    while (GetKeyState("LCtrl", "P")) {
+
+        startPos := 1
+        while True
+        {
+            matchPos := RegExMatch(formulaString, "O)(?<sheet>['\s].*?!)?(?<cellref>\$?[A-Z]+\$?\d+(?::\$?[A-Z]+\$?\d+)?)" , matchObj, startPos)
+            startPos := matchPos + matchObj.Len[0]
+            ;text := MatchObj.Value[0]
+            ;msgBox, Full MatchObj.Value[0]: %text%
+
+            if (startPos > 0) {
+
+                sheetMatch := matchObj.Value["sheet"]
+                sheetMatch := StrReplace(sheetMatch, "'", "", OutputVarCount, Limit := -1)
+                sheetMatch := StrReplace(sheetMatch,"!","")
+                
+                ;msgBox, Sheet: %sheetMatch%
+                cellMatch := matchObj.Value["cellref"]
+                ;msgBox, CellReference: %cellMatch%
+                ;msgBox, StartPos: %startPos%  MatchPos: %matchPos%
+
+                if (sheetMatch = "") {
+                    xl.ActiveSheet.Range(cellMatch).Select
+                } else {
+                    xl.ActiveWorkBook.Sheets(sheetMatch).Activate
+                    xl.activeSheet.Range(cellMatch).Select
+                }
+            } else {
+                break
+            }
         }
-
+        KeyWait, [
+        while (GetKeyState("[", "P") = 0 and GetKeyState("LCtrl", "P")) {
+            sleep, 100
+        }
     }
-
-/*
-    Loop, % matchObj.Count() {
-        text := matchObj.Value[0]
-        MsgBox, %text%
-    }
-*/
 
     ObjRelease(xl)
 return

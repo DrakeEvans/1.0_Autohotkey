@@ -159,51 +159,51 @@ return
 
 ;Previous Cell
 <!`::
-{
-global xl
-global cellIndexOffset
-global cellHistory
 
-try {
-	cellIndexOffset := cellIndexOffset + 1
+	global xl
+	global cellIndexOffset
+	global cellHistory
 
-	cellIndex := cellHistory._MaxIndex() - cellIndexOffset + 1
+	try {
+		cellIndexOffset := cellIndexOffset + 1
 
-	selectCellAddress := cellHistory[cellIndex]
-	;msgbox %selectCellAddress%
-	xl.ActiveSheet.Range(selectCellAddress).Select
-}
+		cellIndex := cellHistory._MaxIndex() - cellIndexOffset + 1
+
+		selectCellAddress := cellHistory[cellIndex]
+		;msgbox %selectCellAddress%
+		xl.ActiveSheet.Range(selectCellAddress).Select
+	}
 return
-}
+
 
 ;Reset Cell Index Offset
 
 ~<!` up::
-{
-Keywait LAlt
-global xl
-global cellHistory
-global cellIndexOffset := 0
-global thisCellAddress
 
-cellIndexOffset := 0
+	Keywait LAlt
+	global xl
+	global cellHistory
+	global cellIndexOffset := 0
+	global thisCellAddress
 
-try {
-	cellHistory.Insert(thisCellAddress)
-	thisCellAddress := xl.Selection.Address
+	cellIndexOffset := 0
 
-	loopCount := cellHistory._MaxIndex()
-			Loop, %loopCount% {
-			
-				If (cellHistory[A_Index] = thisCellAddress) {
-					
-					cellHistory.RemoveAt(A_Index)
+	try {
+		cellHistory.Insert(thisCellAddress)
+		thisCellAddress := xl.Selection.Address
+
+		loopCount := cellHistory._MaxIndex()
+				Loop, %loopCount% {
+				
+					If (cellHistory[A_Index] = thisCellAddress) {
+						
+						cellHistory.RemoveAt(A_Index)
+					}
 				}
-			}
-	;msgBox, %cellIndexOffset%
-}
+		;msgBox, %cellIndexOffset%
+	}
 return
-}
+
 
 
 ;LWin up::return

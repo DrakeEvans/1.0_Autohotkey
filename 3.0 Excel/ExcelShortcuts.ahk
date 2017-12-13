@@ -432,7 +432,27 @@ return
 ;TraceDependents
 ^!]::
 	xl := ComObjActive("Excel.Application")
-	xl.Commandbars.ExecuteMso("TraceDependents")
+	selectionCount := xl.Selection.Count
+	if (selectionCount > 1) {
+		xl.ScreenUpdating := False
+		xl.DisplayAlerts := False
+		originalRange := xl.Selection
+
+		areaCount := originalRange.Areas.Count
+		Loop, %areaCount% {
+			areaIndex := A_Index
+			
+			cellCount := originalRange.Areas(areaIndex).Count
+			Loop, %cellCount% {
+				originalRange.Areas(areaIndex).Cells(A_index).Select
+				xl.Commandbars.ExecuteMso("TraceDependents")
+			}
+		}
+		xl.ScreenUpdating := True
+		xl.DisplayAlerts := True
+	} else {
+		xl.Commandbars.ExecuteMso("TraceDependents")
+	}
 	ObjRelease(xl)
 return
 
