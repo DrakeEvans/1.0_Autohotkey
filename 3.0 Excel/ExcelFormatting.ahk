@@ -735,8 +735,10 @@ return
 	xl.Calculation := -4135
 	xl.ScreenUpdating := False
 	xl.EnableEvents := False
-
+	
 	myselection := xl.Selection
+	
+	/*
 	myselection.copy
 	rngAddress := myselection.Address
 	style1 := xl.Workbooks("PERSONAL.XLSB").Sheets(1).Range(rngAddress)
@@ -744,6 +746,8 @@ return
 	;style1.Interior.Color := xl.Workbooks("PERSONAL.XLSB").Styles("2nd Level").Interior.Color
 	;style1.Font.Bold := True
 	style1.copy
+	*/
+	xl.ActiveWorkbook.Sheets("style").Range("B15").Copy
 	myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
@@ -770,6 +774,7 @@ return
 	xl.ScreenUpdating := False
 	xl.EnableEvents := False
 	myselection := xl.Selection
+	/*
 	myselection.copy
 	rngAddress := myselection.Address
 	style1 := xl.Workbooks("PERSONAL.XLSB").Sheets(1).Range(rngAddress)
@@ -778,6 +783,8 @@ return
 	;style1.Interior.Color := xl.Workbooks("PERSONAL.XLSB").Styles("2nd Level").Interior.Color
 	;style1.Font.Bold := True
 	style1.copy
+	*/
+	xl.ActiveWorkbook.Sheets("style").Range("B16").Copy
 	myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
@@ -805,6 +812,7 @@ return
 	xl.EnableEvents := False
 	myselection := xl.Selection
 	myselection.copy
+	/*
 	rngAddress := myselection.Address
 	style1 := xl.Workbooks("PERSONAL.XLSB").Sheets(1).Range(rngAddress)
 	style1.PasteSpecial(-4122)
@@ -814,7 +822,10 @@ return
 	;style1.Interior.Color := xl.Workbooks("PERSONAL.XLSB").Styles("3rd Level").Interior.Color
 	;style1.Font.Bold := xl.Workbooks("PERSONAL.XLSB").Styles("3rd Level").Font.Bold
 	;style1.copy
-	;myselection.select
+	*/
+
+	xl.ActiveWorkbook.Sheets("style").Range("B17").Copy
+	myselection.select
 	If (myselection.Count = 1) {
 	rwNumber := myselection.Row
 	rangeAddress := "D" . rwNumber . ":BI" . rwNumber
@@ -843,11 +854,16 @@ return
 	xl.EnableEvents := False
 	myselection := xl.Selection
 	myselection.copy
+
+	/*
 	rngAddress := myselection.Address
 	style1 := xl.Workbooks("PERSONAL.XLSB").Sheets(1).Range(rngAddress)
 	style1.PasteSpecial(-4122)
 	style1.style := "4th Level"
 	style1.copy
+	*/
+
+	xl.ActiveWorkbook.Sheets("style").Range("B15").Copy
 	myselection.select
 
 	If (myselection.Count = 1) {
