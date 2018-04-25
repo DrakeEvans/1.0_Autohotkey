@@ -31,37 +31,22 @@ return
 ; Gui, Show
 ;return
 
-AppsKey & Left::
-    SendInput #{Left}
+
+^#F9::
+SplashTextOn, 100, 100, Title, Scroll Left
+    /*SendInput, {CtrlUp}
+    SendInput, {AltUp}
+    SendInput, {LWinUp}
+    SendInput, {RWinUp}
+    */
+    SendInput, {WheelLeft}
+    SplashTextOff
 return
 
-AppsKey & Right::
-    SendInput #{Right}
-return
-
-AppsKey & Up::
-    SendInput #{Up}
-return
-
-AppsKey & Down::
-    SendInput #{Down}
-return
-
-/*
-#InputLevel, 1
-WheelUp::
-    ;MouseGetPos, ,, currentWindowID
-    ;WinActivate, currentWindowID
-    SendInput {WheelDown}
-return
-
-WheelDown::
-    SendInput {WheelUp}
-return
-*/
 
 #InputLevel, 0
 ~WheelLeft::
+    
     Loop, 2 {
         SendInput {WheelLeft}
     }
@@ -73,19 +58,21 @@ return
     }
 return
 
-
+/*
 ;Prevent accidental tooltip triggers in Office Applications 
 ~^LAlt::
     SendInput {Ctrl up}
     SendInput {Ctrl down}
 return
-
+*/
 +Esc::
     SendInput {CtrlBreak}
 return
 
 :*R:;cc::CaCO3
 return
+
+:*?R:@d99::drakeevans99@gmail.com
 
 :*?R:@adrake::a.drake.evans@gmail.com
 return
@@ -96,10 +83,10 @@ return
 :*?R:@email::jennifersgilday@gmail.com
 return
 
-:*?R::;phone::9546924650
+:*?R:;phone::9546924650
 return
 
-:*?R::@ecg::ecg.drake@gmail.com
+:*?R:@ecg::ecg.drake@gmail.com
 return
 
 :*?R:;ktn::TT11KTH6F
@@ -183,9 +170,6 @@ return
 :*?:;dol::$
 return
 
-:*?:;zoom::https://zoom.us/j/9094275712
-return
-
 :*?:;;p::%
 return
 
@@ -194,4 +178,5 @@ return
 
 CapsLock::
 return
+
 

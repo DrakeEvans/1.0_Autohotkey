@@ -25,8 +25,37 @@ F1::
 return
 	
 
+^+]:: ;Increase Paragraph Indentation
 
+	ppt := ComObjActive("Powerpoint.Application")
 
+	ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceAfter := ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceAfter + 1
+
+	ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore := ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore + 1
+
+	SplashTextOn, , , % ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore
+	Sleep, 200
+	SplashTextOff
+
+	ObjRelease(ppt)
+return
+
+^+[:: ;Decrease Paragraph Indentation
+
+	ppt := ComObjActive("Powerpoint.Application")
+
+	ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceAfter := ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceAfter - 1
+
+	ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore := ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore - 1
+
+	SplashTextOn, , , % ppt.ActiveWindow.Selection.TextRange.ParagraphFormat.SpaceBefore
+	Sleep, 200
+	SplashTextOff
+
+	ObjRelease(ppt)
+return
+
+^!F9::
 ^#F9:: ;Button on Mouse
     KeyWait, LControl
     KeyWait, LWin
@@ -35,6 +64,7 @@ return
     SendInput {PgUp}
 return
 
+^!F7::
 ^#F7:: ;Button on Mouse
     KeyWait, LControl
     KeyWait, LWin
@@ -44,7 +74,7 @@ return
 return
 
 
-#p::
+#p:: ;Print to PDF
 	ppt := ComObjActive("Powerpoint.Application")
 	Input, inputVar, L1, {Esc}, "p,c,a"
 	if (inputVar = "p") {
@@ -92,16 +122,16 @@ return
 		}
 return
 
-+Enter::
++Enter:: ;Remap to Escape
 	SendInput {Esc}
 return
 
-MButton::
+MButton:: ;Remap to Delete
 	SendInput {Del}
 return
 
 ;Insert Note Updated
-#+n::
+#+n:: ;Insert note
 	try {
 		ppt := ComObjActive("Powerpoint.Application")
 		;(1,605,39,150,40)
@@ -115,7 +145,7 @@ return
 
 
 ;Unlock Aspect Ratio
-#!p::
+#!p:: ; unlock aspect ratio
 
 	try {
 		ppt := ComObjActive("Powerpoint.Application")
@@ -125,12 +155,11 @@ return
 
 
 ;copyRange
-~^c::
-
-try {
-	ppt := ComObjActive("Powerpoint.Application")
-	copyRange := ppt.ActiveWindow.Selection.ShapeRange(1)
-}
+~^c:: ;CopyRange
+	try {
+		ppt := ComObjActive("Powerpoint.Application")
+		copyRange := ppt.ActiveWindow.Selection.ShapeRange(1)
+	}
 return
 
 
@@ -223,7 +252,7 @@ return
 return
 
 ;Copy the dimensions/positions of selected shape
-^!s:: 
+^!s:: ;Copy dimensions of selected Shape
 	KeyWait, LControl
 	KeyWait, LAlt
 	ppt := ComObjActive("Powerpoint.Application")
@@ -258,7 +287,7 @@ return
 	;ppt.ActiveWindow.View.Slide.Shapes(originalShape.Name).PickUp
 	sleep, 500
 	originalShape.Visible := False
-	xl.CommandBars.ExecuteMso("ObjectSendToBack")
+	ppt.CommandBars.ExecuteMso("ObjectSendToBack")
 	
 return
 

@@ -1,12 +1,12 @@
 #Hotstring EndChars ()[]{}:;'"/\,.?!`n `t
-#MaxHotKeysPerInterval 10000
+#MaxHotKeysPerInterval 100000
 #SingleInstance Force
 
 WheelUp::
-SplashTextOn, 100, 25, , % A_TimeSincePriorHotkey
+;SplashTextOn, 100, 25, , % A_TimeSincePriorHotkey
     if (A_TimeSincePriorHotkey) > 200 {  
         SendInput {WheelUp}
-    } else if (A_TimeSincePriorHotkey) > 60 {
+    } else if (A_TimeSincePriorHotkey) > 45 {
         Loop, 3 {
             SendInput {WheelUp}
         }
@@ -19,10 +19,10 @@ return
 
 
 WheelDown::
-SplashTextOn, 125, 25, , % A_TimeSincePriorHotkey
+;SplashTextOn, 125, 25, , % A_TimeSincePriorHotkey
     if (A_TimeSincePriorHotkey) > 200 {  
         SendInput {WheelDown}
-    } else if (A_TimeSincePriorHotkey) > 60 {
+    } else if (A_TimeSincePriorHotkey) > 45 {
         Loop, 3 {
             SendInput {WheelDown}
         }
