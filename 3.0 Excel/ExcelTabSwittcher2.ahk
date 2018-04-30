@@ -4,6 +4,16 @@
 global xl := ComObjActive("Excel.Application")   ; ID active Excel Application
 ComObjConnect(xl, "xl_")	; connect oWord events to corresponding script functions with the prefix "xl_".
 ;xl.Visible := 1	 ; make xl Visible
+
+/*
+wbCount := xl.Workbooks(1).Name
+msgbox, % wbCount
+if !(wbCount > 0) {
+	MsgBox, % wbCount . ": " . A_ScriptFullPath
+	run, %A_ScriptFullPath%
+}
+*/
+
 global onOffSwitch := True
 
 

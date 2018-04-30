@@ -1,6 +1,7 @@
 #MaxHotKeysPerInterval 1000
 #SingleInstance Force
 
+#IfWinActive, ahk_class XLMAIN
 ^#F3::
 ^!F3::
     KeyWait, F3
@@ -24,7 +25,21 @@ return
 
 ^#F1::
 ^!F1::
-    KeyWait, F1
+
+xl := ComObjActive("Excel.Application")
+
+loopCount := xl.Selection.Cells.Count
+;msgbox, %loopCount%
+ Loop, %loopCount% {
+     text := xl.Selection.Cells(A_Index).Formula
+    ; msgbox, %text%
+    url1 := StrReplace(text, "," , "%2C")
+    url2 := StrReplace(url1, " ", "+")
+    url3 := StrReplace(url2, "&", "%26")
+    url4 := "https://scholar.google.com/scholar?q=" . url3
+    run, chrome.exe %url4%
+ }
+    /*KeyWait, F1
     xl := ComObjActive("Excel.Application")
 
     loopCount := xl.Selection.Count
@@ -43,8 +58,22 @@ return
     }
 
     ObjRelease(xl)
+    */
 return
 
+^!F9::
+^#F9::
+    KeyWait, F9
+    SendInput, ^{PgDn}
+return
+
+^!F7::
+^#F7::
+    KeyWait, F7
+    SendInput, ^{PgUp}
+return
+
+#IfWinActive
 
 ^#F4::
 ^!F4::

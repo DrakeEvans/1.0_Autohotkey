@@ -25,7 +25,7 @@ launchScript(myProcess, myScripts)
                 }
             }
         }
-        else if state_%uniqueName% = On ;Process Exists and the State Change has not been registered
+        else if state_%uniqueName% = On
         {
             xl := ComObjActive("Excel.Application")
 
