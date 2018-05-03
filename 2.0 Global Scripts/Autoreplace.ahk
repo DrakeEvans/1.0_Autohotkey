@@ -69,9 +69,6 @@ return
     SendInput {CtrlBreak}
 return
 
-:*R:;cc::CaCO3
-return
-
 #Include C:\Users\MBP\Documents\1.0_Autohotkey\1.0 System Scripts\PersonalInfo.ahk
 
 Appskey::
@@ -188,3 +185,13 @@ KeyWait, Space
 SplashImage, Off
 return
 
+#IfWinActive, , Todoist
+
+#a::
+;tempFile := clipboard
+;clipboard =
+clipboard = @afternoon @evening @morning
+KeyWait, ^
+;ClipWait
+SendInput, ^v
+;clipboard := tempFile
