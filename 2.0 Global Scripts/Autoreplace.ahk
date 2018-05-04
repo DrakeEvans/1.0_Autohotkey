@@ -75,54 +75,72 @@ Appskey::
     Send {Appskey}
 return 
 
-:*?:;u::{U+03BC}
+; μ
+:*?:;u::{U+03BC} ;μ
 return
 
-:*?:-->::{U+21FE}
+; ⇾
+:*?:-->::{U+21FE} ;⇾
 return
 
+; ≈
 :*?:;=::{U+2248}
 return
 
+; ±
 :*?:+_::{U+00B1}
 return
 
+; ⇽
 :*?:<--::{U+21FD}
 return
 
+; ¢
 :?*:;;c::{U+00A2}
 return
 
+;checkmark in windows sometimes
 :*:;v::{U+00FC}
 return
+
 
 :*?:__::{U+2013}
 return
 
+; —
 :*?:---::{U+2014}
 return
 
-:*?:/;::{U+00F7}
+; ÷
+:*?:;/::{U+00F7}
 return
 
+; ∆
 :?*:;Delta::{U+2206}
 return
 
+; ·
 :?*:;.::{U+00B7}
 return
 
+; (¢/lb)
 :*:;cpp::({U+00A2}/lb)
 return
 
+; &
 :?*:;and::&
 return
 
-:?*:;pptobject::ppt := ComObjActive("Powerpoint.Application")
+
+:?*:;pptobject::
+    SendInput, ppt := ComObjActive("Powerpoint.Application")
 return
 
+; ($, '000s)
 :?*:;tho::($, '000s)
 return
 
+; ($/T)
 :?*:;dpt::($/T)
 return
 
@@ -137,6 +155,7 @@ return
     SendInput {Up}
 return
 
+; €
 :*?:;euro::{U+20AC}
 return
 
@@ -146,11 +165,14 @@ return
 :*?:;ttho::(T, '000s)
 return
 
+; $
 :*?:;dol::$
 return
 
+; %
 :*?:;;p::%
 return
+
 
 :*?:;asc::Adhesives, Sealants, & Caulks
 return
