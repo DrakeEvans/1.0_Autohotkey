@@ -217,3 +217,11 @@ KeyWait, ^
 ;ClipWait
 SendInput, ^v
 ;clipboard := tempFile
+
+#IfWinExist, ahk_exe Wox.exe
+
+Esc::
+    WinActivate, ahk_exe Wox.exe
+    WinWait, ahk_exe Wox.exe
+    SendInput, {Esc}
+return
