@@ -43,7 +43,6 @@ xl_SheetActivate(){	; event that fires when new sheet is activated
 	;msgbox, fired
 
 	try {
-		
 
 		If (tabIndexOffset = 0) {	
 			
