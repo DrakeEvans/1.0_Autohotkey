@@ -1,6 +1,21 @@
 #MaxHotKeysPerInterval 1000
 #SingleInstance Force
 
+ScrollLock:: ;Disable Scroll Lock
+return
+
+#If, GetKeyState("ScrollLock", "P") ;Your CapsLock hotkeys go below
+
+LButton:: ;Curently Does Nothing
+    SendInput, ^c
+return
+
+RButton::
+    SendInput, ^v
+return
+
+#If
+
 #IfWinActive, ahk_class XLMAIN
 ^#F3::
 ^!F3::

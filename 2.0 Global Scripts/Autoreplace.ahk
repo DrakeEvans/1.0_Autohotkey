@@ -31,6 +31,13 @@ return
 ; Gui, Show
 ;return
 
+^#Left::
+    SendInput, {Home}
+return
+
+^#Right::
+    SendInput, {End}
+return
 
 ^#F9::
 SplashTextOn, 100, 100, Title, Scroll Left
