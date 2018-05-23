@@ -232,3 +232,11 @@ Esc::
     WinWait, ahk_exe Wox.exe
     SendInput, {Esc}
 return
+
+#IfWinActive, ahk_exe Code.exe
+
+:*?B0:f'::'
+return
+
+:*?B0:r'::'
+return

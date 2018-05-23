@@ -1,13 +1,36 @@
 #MaxHotKeysPerInterval 1000
 #SingleInstance Force
 
+
 ScrollLock:: ;Disable Scroll Lock
 return
 
 #If, GetKeyState("ScrollLock", "P") ;Your CapsLock hotkeys go below
 
-LButton:: ;Curently Does Nothing
+LButton:: 
     SendInput, ^c
+return
+
+^#F7::
+    global lastValue
+    SendInput, ^c
+    Sleep, 150
+    textToAppend := clipboard
+
+    textToAppend := ";" . textToAppend
+
+    FileAppend, %textToAppend%, C:\Users\MBP\Desktop\flashcards.txt
+return
+
+^#F9::
+    global lastValue
+    SendInput, ^c
+    Sleep, 150
+    textToAppend := clipboard
+
+    textToAppend := "," . textToAppend
+
+    FileAppend, %textToAppend%, C:\Users\MBP\Desktop\flashcards.txt
 return
 
 RButton::
@@ -15,6 +38,7 @@ RButton::
 return
 
 #If
+
 
 #IfWinActive, ahk_class XLMAIN
 ^#F3::
